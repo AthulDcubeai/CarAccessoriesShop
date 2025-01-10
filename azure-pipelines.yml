@@ -7,9 +7,7 @@ trigger:
 - master
 
 pool:
-  name: 'CarAccessories'   # Or your custom agent pool name
-  demands:
-    - agent.name -equals D3-PC-14
+  vmImage: 'windows-latest'
 
 variables:
   solution: '**/*.sln'
