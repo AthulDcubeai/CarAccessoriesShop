@@ -1,22 +1,30 @@
 trigger:
-- main # Trigger on changes to the main branch
+- main  # Replace 'main' with your branch name
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: CarAccessories
+  demands:
+    - Agent.Name -equals D3-PC-14
 
 steps:
-- task: NodeTool@0
+- task: UseDotNet@2
+  displayName: 'Install .NET Core SDK'
   inputs:
-    versionSpec: '16.x' # Specify Node.js version
-  displayName: 'Install Node.js'
+    packageType: 'sdk'
+    version: '6.x'  # Replace with the required .NET version
 
 - script: |
-    npm install
-    npm run build
-  displayName: 'Build Project'
+    echo "Building the application..."
+    dotnet build YourProject.sln
+  displayName: 'Build the application'
 
-- task: AzureStaticWebApp@0
+- script: |
+    echo "Running tests..."
+    dotnet test YourProject.sln
+  displayName: 'Run unit tests'
+
+- task: PublishPipelineArtifact@1
   inputs:
-    azure_static_web_apps_api_token: $(deployment_token) # Deployment Token
-    app_location: '/' # Location of your app code
-    output_location: 'build' # Directory of the built app
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifact: 'drop'
+  displayName: 'Publish Build Artifacts'
