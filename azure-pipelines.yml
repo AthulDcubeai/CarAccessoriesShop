@@ -15,12 +15,12 @@ steps:
 
 - script: |
     echo "Building the application..."
-    dotnet build YourProject.sln
+    dotnet build CarAccessoriesShop.sln
   displayName: 'Build the application'
 
 - script: |
     echo "Running tests..."
-    dotnet test YourProject.sln
+    dotnet test CarAccessoriesShop.sln
   displayName: 'Run unit tests'
 
 - task: PublishPipelineArtifact@1
