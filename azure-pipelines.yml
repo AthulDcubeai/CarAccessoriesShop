@@ -6,22 +6,12 @@ pool:
   demands:
     - Agent.Name -equals D3-PC-14
 
-variables:
-  NUGET_SCRATCH: 'C:\Temp\NuGetScratch'
-
 steps:
 - task: UseDotNet@2
   displayName: 'Install .NET Core SDK'
   inputs:
     packageType: 'sdk'
     version: '6.x'  # Replace with the required .NET version
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      mkdir C:\Temp\NuGetScratch
-- script: dotnet restore
-  displayName: 'Restore NuGet packages'
   
 - script: |
     echo "Building the application..."
